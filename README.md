@@ -1,178 +1,129 @@
-# 🌾 KrishiArogya
+# KrishiArogya 🌱🏥
 
-> AI-Powered Crop Recommendation System
+An intelligent agricultural AI platform that helps farmers make informed decisions about crop selection and disease management.
 
-An intelligent crop recommendation application that predicts the best crop to plant based on soil nutrients and weather conditions using Machine Learning.
+## 🌟 Features
 
-## ✨ Features
+### 🌾 Crop Predictor
+- Smart crop recommendations based on soil and weather conditions
+- ML confidence scoring for reliability assessment
+- Real-time input validation with helpful hints
+- Support for 24+ crop varieties
 
-- 🤖 **AI-Powered Predictions** - Ensemble ML model (Random Forest, SVM, KNN)
-- 🎨 **Modern UI** - Beautiful, responsive design with input validation
-- 📱 **Mobile Friendly** - Works seamlessly on all devices
-- ⚡ **Real-time Validation** - Instant feedback on input errors
-- 📊 **Confidence Scoring** - See prediction confidence levels
+### �� Crop Doctor
+- AI-powered crop disease diagnosis
+- Image upload support for enhanced analysis
+- Expert solutions with severity assessment
+- English & Hindi language support
 
 ## 🛠 Tech Stack
 
-**Frontend**
-
-- React 19.2.0
-- Vite (build tool)
-- Axios (HTTP client)
-- CSS3
-
-**Backend**
-
-- Express.js 5.2.1
-- Node.js
-
-**ML Service**
-
-- FastAPI
-- Python 3.13
-- scikit-learn
-- Ensemble Learning
+**Frontend:** React 19 + Vite + Axios  
+**Backend:** Express.js 5.2.1 + Multer  
+**ML Service:** FastAPI + Scikit-learn  
+**AI:** Groq API for disease diagnosis
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js 16+
+- Node.js 18+
 - Python 3.8+
+- Groq API key from https://console.groq.com/
 
-### Installation
+### Setup & Run
 
-1. **Clone the repository**
-
+**1. ML Service**
 ```bash
-git clone https://github.com/rmndep/krishiArogya.git
-cd krishiArogya
+cd ml-service
+pip install fastapi uvicorn numpy scikit-learn pandas
+python3 main.py
 ```
 
-2. **Install dependencies**
-
-Frontend:
-
-```bash
-cd frontend/krishiarogya-ui
-npm install
-```
-
-Backend:
-
+**2. Backend**
 ```bash
 cd backend
 npm install
-```
-
-ML Service:
-
-```bash
-cd ml-service
-pip install fastapi uvicorn numpy scikit-learn joblib
-```
-
-### Running
-
-**Terminal 1 - ML Service (start first)**
-
-```bash
-cd ml-service
-uvicorn main:app --reload --port 8000
-```
-
-**Terminal 2 - Backend**
-
-```bash
-cd backend
+echo "GROK_API_KEY=your_groq_key" > .env
 node server.js
 ```
 
-**Terminal 3 - Frontend**
-
+**3. Frontend**
 ```bash
 cd frontend/krishiarogya-ui
+npm install
 npm run dev
 ```
 
-Open your browser at `http://localhost:5173`
+Open **http://localhost:5173** in browser.
 
-## 📋 Input Parameters
+## 📝 API Endpoints
 
-| Parameter      | Range   | Unit  |
-| -------------- | ------- | ----- |
-| Nitrogen (N)   | 0-140   | mg/kg |
-| Phosphorus (P) | 0-145   | mg/kg |
-| Potassium (K)  | 0-205   | mg/kg |
-| Temperature    | 8-43    | °C    |
-| Humidity       | 0-100   | %     |
-| pH Level       | 3.5-9.5 | -     |
-| Rainfall       | 20-250  | mm    |
-
-## 🎯 Supported Crops
-
-Rice, Wheat, Chickpea, Kidneybeans, Pigeonpeas, Mothbeans, Mungbeans, Blackgram, Lentil, Pomegranate, Banana, Mango, Grapes, Watermelon, Muskmelon, Apple, Orange, Papaya, Coconut, Cotton, Sugarcane, Tobacco, Jute, Maize
-
-## 🔌 API
-
-**Endpoint:** `POST http://localhost:5000/predict`
-
-**Request:**
-
-```json
+**Crop Prediction:**
+```
+POST /predict
 {
-  "N": 90,
-  "P": 42,
-  "K": 43,
-  "temperature": 21.77,
-  "humidity": 82,
-  "ph": 6.5,
-  "rainfall": 202.94
+  "N": 90, "P": 42, "K": 43,
+  "temperature": 21.77, "humidity": 82,
+  "ph": 6.5, "rainfall": 202.94
 }
 ```
 
-**Response:**
-
-```json
-{
-  "crop": "rice",
-  "confidence": 0.95
-}
+**Crop Doctor:**
+```
+POST /crop-doctor
+Form Data: text, image (optional)
 ```
 
-## 📚 Project Structure
+## 📂 Project Structure
 
 ```
 krishiArogya/
-├── frontend/
-│   └── krishiarogya-ui/
-│       └── src/
-│           ├── App.jsx
-│           ├── App.css
-│           └── index.css
-├── backend/
-│   └── server.js
-├── ml-service/
-│   ├── main.py
-│   ├── train.py
-│   ├── model.pkl
-│   └── scaler.pkl
+├── frontend/krishiarogya-ui/  (React app)
+├── backend/                   (Express API)
+├── ml-service/                (FastAPI ML server)
 └── README.md
 ```
 
-## 🤝 Contributing
+## 🌾 Supported Crops
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Rice, Wheat, Maize, Chickpea, Kidneybeans, Mango, Banana, Grapes, Apple, Orange, Coconut, Cotton, Sugarcane, and more.
 
-## 🙏 Acknowledgments
+## ⚙️ Configuration
 
-- Crop recommendation dataset from Kaggle
-- Built with ❤️ for farmers worldwide
+Add to `backend/.env`:
+```
+GROK_API_KEY=your_groq_api_key_here
+```
+
+Get API key from: https://console.groq.com/
+
+## 📋 Input Ranges
+
+- **Nitrogen:** 0-140 mg/kg
+- **Phosphorus:** 0-145 mg/kg
+- **Potassium:** 0-205 mg/kg
+- **Temperature:** 8-43°C
+- **Humidity:** 0-100%
+- **pH:** 3.5-9.5
+- **Rainfall:** 20-250 mm
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Port already in use | Kill process or change port |
+| Crop Doctor not working | Verify GROK_API_KEY in .env |
+| ML service error | Install all Python dependencies |
+
+## ✨ Highlights
+
+✅ Modern gradient UI with animations  
+✅ Real-time input validation  
+✅ AI disease diagnosis with image support  
+✅ Multilingual (English/Hindi)  
+✅ Confidence scoring  
+✅ Mobile responsive
 
 ---
 
-**Empowering farmers with AI technology for sustainable farming** 🚀
+**Empowering Farmers with AI** 🚀
